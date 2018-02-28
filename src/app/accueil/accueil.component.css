@@ -1,0 +1,13 @@
+.card{
+    margin: auto;
+    width: 50%;
+}
+.card-text{
+    font-size: 10px;
+    text-align: center;
+}
+
+.card-link{
+    font-size: 25px;
+}
+

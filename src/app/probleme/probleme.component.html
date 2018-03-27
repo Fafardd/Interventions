@@ -1,19 +1,48 @@
+<br />
 <div class="container">
   <div class="card">
     <div class="card text-white card-header bg-secondary mb-3">
       Déclarer un problème
     </div>
     <div class="card-body">
-      <p class="card-text">Veuillez renseigner les zones suivante et soumettre votre demande</p>
-      <!-- <form>
+      <h5 class="card-title">Veuillez renseigner les zones suivante et soumettre votre demande</h5>
+      <div class="card-text"></div>
+      <form class="form-horizontal"
+      novalidate
+      (ngSubmit)="save()"
+      [formGroup]="problemeForm">
         <div class="form-group row">
-          <label for="prenom" class="col-sm-2 col-form-label">Prénom :</label>
-          <div class="col-sm-10">
-            <input type="text" class="form-control" id="prenom" placeholder="Votre prénom ici (obligatoire)">
+          <label for="prenomId" class="col-md-2 col-form-label text-right">Prénom: </label>
+          <div class="col-md-10">
+            <input type="form-control"
+            class="form-control"
+            id="prenomId"
+            type="text"
+            placeholder="Prénom (obligatoire)"
+            formControlName="prenom" 
+            [ngClass]="{'is-invalid':(problemeForm.get('prenom').touched ||
+            problemeForm.get('prenom').dirty) &&
+            !problemeForm.get('prenom').valid,
+            'is-valid': (problemeForm.get('prenom').touched ||
+            problemeForm.get('prenom').dirty) &&
+            problemeForm.get('prenom').valid}"
+            />
+            <span class="form-text" *ngIf="(problemeForm.get('prenom').touched || 
+                  problemeForm.get('prenom').dirty) &&
+                  problemeForm.get('prenom').errors">
+              <span *ngIf="problemeForm.get('prenom').errors.minlength">
+                <small class="text-muted">
+                  Indiquer au moins 3 caractères.
+                </small>
+              </span>
+            </span>
           </div>
+          
         </div>
-      </form> -->
+      </form>
       <a href="#" class="btn btn-primary" ><fa name="save" animation=""></fa>Sauvegarder</a>
     </div>
+      
+    </div>
   </div>
-</div>
+

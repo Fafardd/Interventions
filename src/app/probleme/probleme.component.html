@@ -32,19 +32,19 @@
             <span class="form-text" *ngIf="(problemeForm.get('prenom').touched || 
                   problemeForm.get('prenom').dirty) &&
                   problemeForm.get('prenom').errors">
-              <span *ngIf="problemeForm.get('prenom').errors.minlength">
+              <!--<span *ngIf="problemeForm.get('prenom').errors.minlength">
                 <small class="text-muted">
                   Indiquer au moins 3 caractères.
                 </small>
-              </span>
+              </span>-->
               <span *ngIf="!problemeForm.get('prenom').errors.sansEspaces">
                 <small class="text-muted">
-                  Le prénom ne peut pas contenir seulement des espaces.
+                  Merci de saisir votre prénom.
                 </small>
               </span>
               <span *ngIf="!problemeForm.get('prenom').errors.longueurMinimum">
                 <small class="text-muted">
-                  Excluant les espaces, le prénom doit avoir 3 caractères.
+                  Veuillez entrer plus de caractères.
                 </small>
               </span>
             </span>

@@ -21,11 +21,13 @@
             placeholder="Prénom (obligatoire)"
             formControlName="prenom" 
             [ngClass]="{'is-invalid':(problemeForm.get('prenom').touched ||
-            problemeForm.get('prenom').dirty) &&
-            !problemeForm.get('prenom').valid,
+            problemeForm.get('prenom').dirty) &&(
+            !problemeForm.get('prenom').errors.sansEspaces ||
+            !problemeForm.get('prenom').errors.longueurMinimum),
             'is-valid': (problemeForm.get('prenom').touched ||
             problemeForm.get('prenom').dirty) &&
-            problemeForm.get('prenom').valid}"
+            problemeForm.get('prenom').errors.sansEspaces &&
+            problemeForm.get('prenom').errors.longueurMinimum }"
             />
             <span class="form-text" *ngIf="(problemeForm.get('prenom').touched || 
                   problemeForm.get('prenom').dirty) &&
@@ -35,10 +37,49 @@
                   Indiquer au moins 3 caractères.
                 </small>
               </span>
+              <span *ngIf="!problemeForm.get('prenom').errors.sansEspaces">
+                <small class="text-muted">
+                  Le prénom ne peut pas contenir seulement des espaces.
+                </small>
+              </span>
+              <span *ngIf="!problemeForm.get('prenom').errors.longueurMinimum">
+                <small class="text-muted">
+                  Excluant les espaces, le prénom doit avoir 3 caractères.
+                </small>
+              </span>
             </span>
           </div>
           
         </div>
+
+        <!-- <div class="form-group row">
+
+          <label for="quantiteID" class="col-md-2 col-form-label text-right">Quantité :</label>
+          <div class="col-md-10">
+            <input class="form-control"
+            id="quantiteID"
+            type="text"
+            placeholder="Quantité"
+            formControlName="quantite"
+            [ngClass]="{'is-valid': (problemeForm.get('quantite').touched ||
+                  problemeForm.get('quantite').dirty) &&
+                  problemeForm.get('quantite').errors.plage ,
+                  'is-invalid': (problemeForm.get('quantite').touched ||
+                  problemeForm.get('quantite').dirty) &&
+                  !produitForm.get('quantite').errors.plage}"
+            />
+            <span class="form-text" *ngIf="(produitForm.get('quantite').touched ||
+              produitForm.get('quantite').dirty) &&
+              produitForm.get('quantite').errors">
+              <span *ngIf="!problemeForm.get('quantite').erros.plage">
+                <small class="text-muted">
+                    Taper au moins 3 caractères.
+                </small>
+              </span>
+            </span>
+          </div> 
+
+        </div>-->
       </form>
       <a href="#" class="btn btn-primary" ><fa name="save" animation=""></fa>Sauvegarder</a>
     </div>

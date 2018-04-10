@@ -3,6 +3,8 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ProblemeComponent } from './probleme.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
+import { HttpClientModule } from '@angular/common/http';
+import { ProblemeService } from './probleme.service';
 
 describe('ProblemeComponent', () => {
   let component: ProblemeComponent;
@@ -10,8 +12,9 @@ describe('ProblemeComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [ReactiveFormsModule,AngularFontAwesomeModule],
-      declarations: [ ProblemeComponent ]
+      imports: [ReactiveFormsModule,AngularFontAwesomeModule, HttpClientModule],
+      declarations: [ ProblemeComponent ],
+      providers:[ProblemeService]
     })
     .compileComponents();
   }));
@@ -20,6 +23,7 @@ describe('ProblemeComponent', () => {
     fixture = TestBed.createComponent(ProblemeComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
+    
   });
 
   // it('should create', () => {
@@ -80,4 +84,45 @@ describe('ProblemeComponent', () => {
     errors = zone.errors || {};
     expect(errors['longueurMinimum']).toBe(false);
   });
+
+  it('Zone COURRIEL est désactivée si ne pas notifier', ()=>{
+    component.appliquerNotifications('NePasMeNotifierNon');
+
+    let zone = component.problemeForm.get('courrielsGroup.courriel');
+    expect(zone.status).toEqual('DISABLED');
+  });
+
+  it('Zone TELEPHONE est désactivée si ne pas notifier',()=>{
+    component.appliquerNotifications('NePasMeNotifier');
+    let zone = component.problemeForm.get('telephone');
+    expect(zone.status).toEqual('DISABLED');
+  });
+
+  it('Zone CONFIRMATION COURRIEL est désactivée si ne pas notifier', ()=>{
+    component.appliquerNotifications('NePasMeNotifier');
+    let zone = component.problemeForm.get('courrielsGroup.confCourriel');
+    expect(zone.status).toEqual('DISABLED');
+  });
+
+  it('Zone TELEPHONE est vide si ne pas notifier', ()=>{
+    component.appliquerNotifications('NePasMeNotifierNon');
+    let zone = component.problemeForm.get('telephone');
+    expect(zone.value).toBeNull();
+
+  });
+
+  it('Zone COURRIEL est vide si ne pas notifier', ()=>{
+    component.appliquerNotifications('NePasMeNotifier');
+    let zone = component.problemeForm.get('courrielsGroup.courriel');
+    expect(zone.value).toBeNull();
+
+  });
+
+  it('Zone CONFIRMATION COURRIEL est vide si ne pas notifier', ()=>{
+    component.appliquerNotifications('NePasMeNotifier');
+    let zone = component.problemeForm.get('courrielsGroup.confCourriel');
+    expect(zone.value).toBeNull();
+
+  });
+
 });

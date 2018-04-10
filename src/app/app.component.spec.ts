@@ -1,6 +1,7 @@
 import { TestBed, async } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
+import { ProblemeService } from './probleme/probleme.service';
 describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -10,6 +11,8 @@ describe('AppComponent', () => {
       declarations: [
         AppComponent
       ],
+      providers:[ProblemeService]
+      
     }).compileComponents();
   }));
   // it('should create the app', async(() => {

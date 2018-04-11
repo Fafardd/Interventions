@@ -1,8 +1,24 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { FormBuilder, Validators, FormGroup, AbstractControl } from '@angular/forms';
 import { VerifierEspaceValidator } from '../shared/caracteres-validator';
 import { ProblemeService } from './probleme.service';
 import { IProbleme } from './probleme';
+import { emailMatcherValidator } from '../shared/emailMatcher-validator';
+
+// function courrielsValides(c: AbstractControl): {[key: string]: boolean} | null {
+// let courriel = c.get('courriel');
+// let confCourriel = c.get('confCourriel');
+
+// if(!courriel.value || !confCourriel.value){
+//   return null;
+// }
+
+// if(courriel.value != confCourriel.value){
+//   return null;
+// }
+
+// return {'courrielInvalides': true};
+// }
 
 @Component({
   selector: 'inter-probleme',
@@ -38,6 +54,7 @@ export class ProblemeComponent implements OnInit {
     const courrielControl = this.problemeForm.get('courrielsGroup.courriel');
     const confCourrielControl = this.problemeForm.get('courrielsGroup.confCourriel');
     const telephone = this.problemeForm.get('telephone');
+    const courrielGroupControl = this.problemeForm.get('courrielsGroup');
     
     courrielControl.clearValidators();
     confCourrielControl.clearValidators();
@@ -54,11 +71,12 @@ export class ProblemeComponent implements OnInit {
     if(typeNotification == "MeNotifierCourriel"){
       courrielControl.enable();
       confCourrielControl.enable();
-      courrielControl.setValidators([Validators.required, Validators.email]);
-      confCourrielControl.setValidators([Validators.required, Validators.email]);
-    } else if(typeNotification == "MeNotifierTelephone"){
+      courrielControl.setValidators([Validators.required, Validators.email, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+')]);
+      confCourrielControl.setValidators([Validators.required, Validators.email, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+')]);
+      courrielGroupControl.setValidators([Validators.compose([emailMatcherValidator.courrielConfirmation()])]);
+    } else if(typeNotification == "MeNotifierMessagerie"){
       telephone.enable();
-      telephone.setValidators([Validators.required]);
+      telephone.setValidators([Validators.required, Validators.pattern('[0-9]+'),Validators.minLength(10),Validators.maxLength(10)]);
     }
     courrielControl.updateValueAndValidity();
     confCourrielControl.updateValueAndValidity();

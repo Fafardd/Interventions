@@ -47,6 +47,8 @@ export class ProblemeComponent implements OnInit {
     this.probleme.obtenirProbleme()
     .subscribe(cat => this.problemeProduits = cat,
                 error => this.errorMessage = <any>error);
+         
+    this.problemeForm.get('notification').valueChanges.subscribe(value => this.appliquerNotifications(value));          
   }
 
   appliquerNotifications(typeNotification: string ): void{
@@ -68,16 +70,22 @@ export class ProblemeComponent implements OnInit {
     confCourrielControl.disable();
     telephone.disable();
 
-    if(typeNotification == "MeNotifierCourriel"){
+    if(typeNotification === "MeNotifierCourriel"){
       courrielControl.enable();
       confCourrielControl.enable();
       courrielControl.setValidators([Validators.required, Validators.email, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+')]);
       confCourrielControl.setValidators([Validators.required, Validators.email, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+')]);
       courrielGroupControl.setValidators([Validators.compose([emailMatcherValidator.courrielConfirmation()])]);
-    } else if(typeNotification == "MeNotifierMessagerie"){
+    } else if(typeNotification === "MeNotifierMessagerie"){
       telephone.enable();
       telephone.setValidators([Validators.required, Validators.pattern('[0-9]+'),Validators.minLength(10),Validators.maxLength(10)]);
-    }
+    }// else
+    // {
+    //   if(typeNotification === "inconnu"){
+    //     courrielControl.setValidators([Validators.required]);
+    //     courrielControl.disable();
+    //   }
+    // }
     courrielControl.updateValueAndValidity();
     confCourrielControl.updateValueAndValidity();
     telephone.updateValueAndValidity();

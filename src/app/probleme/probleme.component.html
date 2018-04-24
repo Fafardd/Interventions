@@ -21,23 +21,58 @@
             placeholder="Prénom (obligatoire)"
             formControlName="prenom" 
             [ngClass]="{'is-invalid':(problemeForm.get('prenom').touched ||
-            problemeForm.get('prenom').dirty) &&(
-            !problemeForm.get('prenom').errors.sansEspaces ||
-            !problemeForm.get('prenom').errors.longueurMinimum),
+            problemeForm.get('prenom').dirty) && problemeForm.get('prenom').errors,
             'is-valid': (problemeForm.get('prenom').touched ||
             problemeForm.get('prenom').dirty) &&
-            problemeForm.get('prenom').errors.sansEspaces &&
-            problemeForm.get('prenom').errors.longueurMinimum }"
+            !problemeForm.get('prenom').errors}"
             />
             <span class="form-text" *ngIf="(problemeForm.get('prenom').touched || 
                   problemeForm.get('prenom').dirty) &&
                   problemeForm.get('prenom').errors">
-              <span *ngIf="!problemeForm.get('prenom').errors.sansEspaces">
+              <span *ngIf="!problemeForm.get('prenom').errors.sansEsapaces">
                 <small class="text-muted">
                   Merci de saisir votre prénom.
                 </small>
               </span>
               <span *ngIf="!problemeForm.get('prenom').errors.longueurMinimum">
+                <small class="text-muted">
+                  Veuillez entrer plus de caractères.
+                </small>
+              </span>
+            </span>
+          </div>
+          
+        </div>
+
+        <div class="form-group row">
+          <label for="nomId" class="col-md-2 col-form-label text-right">Nom: </label>
+          <div class="col-md-10">
+            <input type="form-control"
+            class="form-control"
+            id="nomId"
+            type="text"
+            placeholder="Nom (obligatoire)"
+            formControlName="nom" 
+            [ngClass]="{'is-invalid':(problemeForm.get('nom').touched ||
+            problemeForm.get('nom').dirty) && problemeForm.get('nom').errors,
+            'is-valid': (problemeForm.get('nom').touched ||
+            problemeForm.get('nom').dirty) && !problemeForm.get('nom').errors }"
+            />
+            <!-- &&(
+              !problemeForm.get('nom').errors.sansEspaces ||
+              !problemeForm.get('nom').errors.longueurMinimum) -->
+              <!-- &&
+              problemeForm.get('nom').errors.sansEspaces &&
+              problemeForm.get('nom').errors.longueurMinimum -->
+            <span class="form-text" *ngIf="(problemeForm.get('nom').touched || 
+                  problemeForm.get('nom').dirty) &&
+                  problemeForm.get('nom').errors">
+              <span *ngIf="!problemeForm.get('nom').errors.sansEspaces">
+                <small class="text-muted">
+                  Merci de saisir votre nom.
+                </small>
+              </span>
+              <span *ngIf="!problemeForm.get('nom').errors.longueurMinimum">
                 <small class="text-muted">
                   Veuillez entrer plus de caractères.
                 </small>
@@ -225,10 +260,79 @@
           </span>
           </div>
         </div>
+        <!-- Zone de texte # Unité  -->        
+<div class="form-group row">          
+	<label for="noUniteId" class="col-md-2 col-form-label text-right"># Unité :</label>
+	<div class="col-md-10">
+	  <input class="form-control" 
+	  id="noUniteId" 
+	  type="text" 
+	  placeholder="Numéro de l'unité si connu" 
+	  formControlName="noUnite" />
+	</div>
+  </div>      
+
+<!-- Zone de texte DESCRIPTION DU PROBLÈME  -->        
+<div class="form-group row">          
+	<label for="descriptionProblemeId" class="col-md-2 col-form-label text-right">Description du problème :</label>
+	<div class="col-md-10">
+	  <textarea class="form-control" 
+	  rows="3"              
+	  id="descriptionProblemeId" 
+	  type="text" 
+	  placeholder="Décrire le propblème ici (obligatoire)" 
+	  formControlName="descriptionProbleme"            
+	  [ngClass]="{'is-valid': (problemeForm.get('descriptionProbleme').touched || problemeForm.get('descriptionProbleme').dirty) &&
+			problemeForm.get('descriptionProbleme').valid, 
+			'is-invalid': (problemeForm.get('descriptionProbleme').touched || problemeForm.get('descriptionProbleme').dirty) &&
+			!problemeForm.get('descriptionProbleme').valid }"></textarea>
+
+	  <span class="form-text" *ngIf="(problemeForm.get('descriptionProbleme').touched || 
+			problemeForm.get('descriptionProbleme').dirty) && 
+			problemeForm.get('descriptionProbleme').errors">
+
+			<span *ngIf="problemeForm.get('descriptionProbleme').errors.required">
+				<small  class="text-muted">
+				   N'oubliez pas de décriree le plus clairement possible le problème rencontré.
+				</small>
+			</span> 
+
+			<span *ngIf="problemeForm.get('descriptionProbleme').errors.minlength">
+			  <small  class="text-muted">
+				La description du problème doit comporter plus de 5 caractères.
+			  </small> 
+			</span>       
+	  </span>
+	</div>
+  </div>
+
+<!-- Zone de texte # Unité  -->        
+<div class="form-group row">          
+	<label for="dateProblemeId" class="col-md-2 col-form-label text-right">Date :</label>
+	<div class="col-md-10">
+	  <input class="form-control" 
+	  id="dateProblemeId" 
+	  type="text" 
+	  formControlName="dateProbleme" />
+	</div>
+  </div> 
 
        
       </form>
-      <a href="#" class="btn btn-primary" ><fa name="save" animation=""></fa>Sauvegarder</a>
+      <!-- <a href="#" class="btn btn-primary" ><fa name="save" animation=""></fa>Sauvegarder</a> -->
+      <div class="form-group row">
+        <div class="col-md-2"></div>
+        <div class="col-md-10">
+        <span>
+        <button class="btn btn-primary"
+        type="submit"
+        [disabled]="!problemeForm.valid">
+        <fa name="save"></fa>
+        &nbsp;&nbsp;Sauvegarder
+        </button>
+        </span>
+        </div>
+        </div>
     </div>
       
     </div>

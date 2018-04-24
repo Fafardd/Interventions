@@ -6,14 +6,14 @@ export class VerifierEspaceValidator{
             if(c.value.trim().length == 0){
                 return{'sansEspaces':false}
             }
-            return{'sansEspaces':true};
+            return null;
         };
     }
 
     static longueurMinimum(min: number): ValidatorFn {
         return(c: AbstractControl): { [key: string]: boolean} | null =>{
             if(c.value.trim().length >= min){
-                return{'longueurMinimum' : true}
+                return null;
             }
 
             return{'longueurMinimum':false};

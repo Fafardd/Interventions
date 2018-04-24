@@ -35,13 +35,17 @@ export class ProblemeComponent implements OnInit {
   ngOnInit() {
     this.problemeForm = this.fb.group({
       prenom: ['', [VerifierEspaceValidator.sansEspaces(), VerifierEspaceValidator.longueurMinimum(3)]],
+      nom: ['', [VerifierEspaceValidator.sansEspaces(), VerifierEspaceValidator.longueurMinimum(3)]],
       noProbleme: ['',Validators.required],
       telephone: [{value: '', disabled: true}],
       notification: ['PasMeNotifier'],
       courrielsGroup: this.fb.group({
         courriel: [{value: '', disabled: true}],
         confCourriel: [{value: '', disabled: true}]
-      })
+      }),
+      descriptionProbleme: ['', [Validators.required, Validators.minLength(5)]],
+      noUnite: '',
+      dateProbleme: {value: Date(), disabled: true} 
     });
 
     this.probleme.obtenirProbleme()
